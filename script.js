@@ -190,9 +190,21 @@ function showAllProducts() {
 // Search products
 function searchProducts() {
     const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+    
     if (searchTerm.trim() === '') {
         renderProducts(products);
-        return;
+    } else {
+        const filteredProducts = products.filter(product =>
+            product.title.toLowerCase().includes(searchTerm) ||
+            product.description.toLowerCase().includes(searchTerm)
+        );
+        renderProducts(filteredProducts);
+    }
+
+    // 🔽 Faz a página rolar até a grade de produtos
+    const productsGrid = document.getElementById('productsGrid');
+    if (productsGrid) {
+        productsGrid.scrollIntoView({ behavior: 'smooth' });
     }
     
     const filteredProducts = products.filter(product => 
