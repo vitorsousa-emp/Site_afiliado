@@ -157,7 +157,7 @@ function filterByStore(storeId) {
     if (storeName) {
         const filteredProducts = products.filter(product => product.store === storeName);
         renderProducts(filteredProducts);
-        
+
         // Visual feedback for selected store
         updateStoreSelection(storeId);
     }
@@ -169,7 +169,7 @@ function updateStoreSelection(selectedStoreId) {
     document.querySelectorAll('.store-card').forEach(card => {
         card.classList.remove('selected');
     });
-    
+
     // Add selection to current store
     const storeCards = document.querySelectorAll('.store-card');
     const selectedIndex = stores.findIndex(store => store.id === selectedStoreId);
@@ -189,33 +189,26 @@ function showAllProducts() {
 
 // Search products
 function searchProducts() {
-    const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-    
-    if (searchTerm.trim() === '') {
-        renderProducts(products);
-    } else {
-        const filteredProducts = products.filter(product =>
-            product.title.toLowerCase().includes(searchTerm) ||
-            product.description.toLowerCase().includes(searchTerm)
-        );
-        renderProducts(filteredProducts);
-    }
+    document.getElementById('searchForm').addEventListener('submit', function (event) {
+        event.preventDefault(); // Impede o recarregamento da página
 
-    // 🔽 Faz a página rolar até a grade de produtos
-    const productsGrid = document.getElementById('productsGrid');
-    if (productsGrid) {
-        productsGrid.scrollIntoView({ behavior: 'smooth' });
-    }
-    
-    const filteredProducts = products.filter(product => 
-        product.title.toLowerCase().includes(searchTerm) ||
-        product.store.toLowerCase().includes(searchTerm)
-    );
-    renderProducts(filteredProducts);
-    
-    // Remove store selections when searching
-    document.querySelectorAll('.store-card').forEach(card => {
-        card.classList.remove('selected');
+        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+
+        if (searchTerm.trim() === '') {
+            renderProducts(products);
+        } else {
+            const filteredProducts = products.filter(product =>
+                product.title.toLowerCase().includes(searchTerm) ||
+                product.description.toLowerCase().includes(searchTerm)
+            );
+            renderProducts(filteredProducts);
+        }
+
+        // Scroll para os produtos SOMENTE após buscar
+        const productsGrid = document.getElementById('productsGrid');
+        if (productsGrid) {
+            productsGrid.scrollIntoView({ behavior: 'smooth' });
+        }
     });
 }
 
@@ -227,17 +220,17 @@ function openProductModal(productId) {
     // Set modal image
     const modalImageContainer = document.getElementById('modalImage');
     modalImageContainer.innerHTML = createProductImageElement(product);
-    
+
     document.getElementById('modalTitle').textContent = product.title;
     document.getElementById('modalDescription').textContent = product.description;
     document.getElementById('modalCurrentPrice').textContent = product.currentPrice;
     document.getElementById('modalOriginalPrice').textContent = product.originalPrice;
-    
+
     currentAffiliateUrl = product.affiliateUrl;
-    
+
     const modal = document.getElementById('productModal');
     modal.style.display = 'flex';
-    
+
     // Prevent body scroll when modal is open
     document.body.style.overflow = 'hidden';
 }
@@ -252,7 +245,7 @@ function closeModal() {
 function redirectToAffiliate() {
     if (currentAffiliateUrl) {
         window.open(currentAffiliateUrl, '_blank');
-        
+
         // Optional: Close modal after redirect
         setTimeout(() => {
             closeModal();
@@ -267,20 +260,20 @@ function clearSearch() {
 }
 
 // Search on Enter key
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     init();
-    
+
     const searchInput = document.getElementById('searchInput');
-    
+
     // Search on Enter key
-    searchInput.addEventListener('keypress', function(e) {
+    searchInput.addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {
             searchProducts();
         }
     });
-    
+
     // Real-time search (optional)
-    searchInput.addEventListener('input', function() {
+    searchInput.addEventListener('input', function () {
         const searchTerm = this.value.toLowerCase();
         if (searchTerm.length === 0) {
             showAllProducts();
@@ -290,14 +283,14 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Close modal when clicking outside
-    document.getElementById('productModal').addEventListener('click', function(e) {
+    document.getElementById('productModal').addEventListener('click', function (e) {
         if (e.target === this) {
             closeModal();
         }
     });
-    
+
     // Close modal with Escape key
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') {
             closeModal();
         }
@@ -348,7 +341,7 @@ function preloadImages() {
         ...stores.filter(store => store.logoImage).map(store => store.logoImage),
         ...products.filter(product => product.image).map(product => product.image)
     ];
-    
+
     imageUrls.forEach(url => {
         const img = new Image();
         img.src = url;

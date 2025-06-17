@@ -11,10 +11,10 @@
     <header class="header">
         <div class="nav-container">
             <a href="#" class="logo">Musa Store</a>
-            <div class="search-container">
+            <form class="search-container" id="searchForm">
                 <input type="text" class="search-bar" placeholder="Pesquisar produtos..." id="searchInput">
-                <button class="search-btn" onclick="searchProducts()">🔍</button>
-            </div>
+                <button type="submit" class="search-btn">🔍</button>
+            </form>
         </div>
     </header>
 
@@ -49,7 +49,7 @@
                 <p class="modal-description" id="modalDescription">Descrição do produto...</p>
                 <div class="modal-price">
                     <span class="modal-current-price" id="modalCurrentPrice">R$ 99,90</span>
-                    <span class="modal-original-price" id="modalOriginalPrice">R$ 149,90</span>
+                    <span class="modal-original-price" id="modalOriginalPrice"></span>
                 </div>
                 <button class="affiliate-btn" id="affiliateBtn" onclick="redirectToAffiliate()">
                     🛒 Ir para a Loja
