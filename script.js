@@ -43,8 +43,8 @@ const products = [
         currentPrice: 'R$ 149,90',
         originalPrice: 'R$ 249,90',
         discount: '40% OFF',
-        icon: '🎧',
-        image: '',
+        icon: '',
+        image: 'imgs/prod.png',
         description: 'Fone de ouvido sem fio com cancelamento de ruído e 20 horas de bateria.',
         affiliateUrl: 'https://shopee.com.br/produto-exemplo-2'
     },
