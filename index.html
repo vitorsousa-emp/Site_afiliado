@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ofertas Incríveis - Shopee e Mais</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <a href="#" class="logo">🛒 Ofertas Top</a>
+            <div class="search-container">
+                <input type="text" class="search-bar" placeholder="Pesquisar produtos..." id="searchInp"ut">
+                <button class="search-btn" onclick="searchProducts()">🔍</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-container">
+        <!-- Store Filter Section -->
+        <section class="store-filter">
+            <h2 class="filter-title">Filtrar por Loja</h2>
+            <div class="store-grid" id="storeGrid">
+                <!-- Store widgets will be populated here -->
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section class="products-section">
+            <h2 class="section-title">Produtos em Destaque</h2>
+            <div class="products-grid" id="productsGrid">
+                <!-- Product widgets will be populated here -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Product Detail Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+                <div class="modal-image" id="modalImage">📱</div>
+            </div>
+            <div class="modal-body">
+                <h3 class="modal-title" id="modalTitle">Título do Produto</h3>
+                <p class="modal-description" id="modalDescription">Descrição do produto...</p>
+                <div class="modal-price">
+                    <span class="modal-current-price" id="modalCurrentPrice">R$ 99,90</span>
+                    <span class="modal-original-price" id="modalOriginalPrice">R$ 149,90</span>
+                </div>
+                <button class="affiliate-btn" id="affiliateBtn" onclick="redirectToAffiliate()">
+                    🛒 Ir para a Loja
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="social-links">
+            <a href="#" class="social-link" title="Instagram">📷</a>
+        </div>
+        <p>&copy; 2025 Ofertas Top. Todos os direitos reservados.</p>
+    </footer>
+
+   <script src="script.js"></script>
+</body>
+</html>
