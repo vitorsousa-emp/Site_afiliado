@@ -4,21 +4,21 @@ const stores = [
         id: 'shopee',
         name: 'Shopee',
         logo: 'S', // Fallback text
-        logoImage: '', // URL da imagem
+        logoImage: 'https://logoeps.com/wp-content/uploads/2021/03/shopee-vector-logo.png', // URL da imagem
         route: '/shopee'
     },
     {
         id: 'mercadolivre',
         name: 'Mercado Livre',
         logo: 'ML', // Fallback text
-        logoImage: '', // URL da imagem
+        logoImage: 'https://http2.mlstatic.com/frontend-assets/ml-web-navigation/ui-navigation/6.6.92/mercadolibre/logo_large_25years_v2.png', // URL da imagem
         route: '/mercadolivre'
     },
     {
         id: 'amazon',
         name: 'Amazon',
         logo: 'A', // Fallback text
-        logoImage: '', // URL da imagem
+        logoImage: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/1024px-Amazon_logo.svg.png', // URL da imagem
         route: '/amazon'
     }
 ];
@@ -157,7 +157,7 @@ function filterByStore(storeId) {
     if (storeName) {
         const filteredProducts = products.filter(product => product.store === storeName);
         renderProducts(filteredProducts);
-
+        
         // Visual feedback for selected store
         updateStoreSelection(storeId);
     }
@@ -169,7 +169,7 @@ function updateStoreSelection(selectedStoreId) {
     document.querySelectorAll('.store-card').forEach(card => {
         card.classList.remove('selected');
     });
-
+    
     // Add selection to current store
     const storeCards = document.querySelectorAll('.store-card');
     const selectedIndex = stores.findIndex(store => store.id === selectedStoreId);
@@ -189,27 +189,27 @@ function showAllProducts() {
 
 // Search products
 function searchProducts() {
-    document.getElementById('searchForm').addEventListener('submit', function (event) {
-        event.preventDefault(); // Impede o recarregamento da página
+   document.getElementById('searchForm').addEventListener('submit', function(event) {
+  event.preventDefault(); // Evita reload
 
-        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+  const searchTerm = document.getElementById('searchInput').value.toLowerCase();
 
-        if (searchTerm.trim() === '') {
-            renderProducts(products);
-        } else {
-            const filteredProducts = products.filter(product =>
-                product.title.toLowerCase().includes(searchTerm) ||
-                product.description.toLowerCase().includes(searchTerm)
-            );
-            renderProducts(filteredProducts);
-        }
+  if (searchTerm.trim() === '') {
+    renderProducts(products); // Exibe tudo
+  } else {
+    const filtered = products.filter(product =>
+      product.title.toLowerCase().includes(searchTerm) ||
+      product.description.toLowerCase().includes(searchTerm)
+    );
+    renderProducts(filtered);
+  }
 
-        // Scroll para os produtos SOMENTE após buscar
-        const productsGrid = document.getElementById('productsGrid');
-        if (productsGrid) {
-            productsGrid.scrollIntoView({ behavior: 'smooth' });
-        }
-    });
+  // Scroll para os produtos
+  const productsSection = document.querySelector('.products-section');
+  if (productsSection) {
+    productsSection.scrollIntoView({ behavior: 'smooth' });
+  }
+});
 }
 
 // Open product modal
@@ -220,17 +220,17 @@ function openProductModal(productId) {
     // Set modal image
     const modalImageContainer = document.getElementById('modalImage');
     modalImageContainer.innerHTML = createProductImageElement(product);
-
+    
     document.getElementById('modalTitle').textContent = product.title;
     document.getElementById('modalDescription').textContent = product.description;
     document.getElementById('modalCurrentPrice').textContent = product.currentPrice;
     document.getElementById('modalOriginalPrice').textContent = product.originalPrice;
-
+    
     currentAffiliateUrl = product.affiliateUrl;
-
+    
     const modal = document.getElementById('productModal');
     modal.style.display = 'flex';
-
+    
     // Prevent body scroll when modal is open
     document.body.style.overflow = 'hidden';
 }
@@ -245,7 +245,7 @@ function closeModal() {
 function redirectToAffiliate() {
     if (currentAffiliateUrl) {
         window.open(currentAffiliateUrl, '_blank');
-
+        
         // Optional: Close modal after redirect
         setTimeout(() => {
             closeModal();
@@ -260,20 +260,20 @@ function clearSearch() {
 }
 
 // Search on Enter key
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
     init();
-
+    
     const searchInput = document.getElementById('searchInput');
-
+    
     // Search on Enter key
-    searchInput.addEventListener('keypress', function (e) {
+    searchInput.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
             searchProducts();
         }
     });
-
+    
     // Real-time search (optional)
-    searchInput.addEventListener('input', function () {
+    searchInput.addEventListener('input', function() {
         const searchTerm = this.value.toLowerCase();
         if (searchTerm.length === 0) {
             showAllProducts();
@@ -283,14 +283,14 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Close modal when clicking outside
-    document.getElementById('productModal').addEventListener('click', function (e) {
+    document.getElementById('productModal').addEventListener('click', function(e) {
         if (e.target === this) {
             closeModal();
         }
     });
-
+    
     // Close modal with Escape key
-    document.addEventListener('keydown', function (e) {
+    document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             closeModal();
         }
@@ -341,7 +341,7 @@ function preloadImages() {
         ...stores.filter(store => store.logoImage).map(store => store.logoImage),
         ...products.filter(product => product.image).map(product => product.image)
     ];
-
+    
     imageUrls.forEach(url => {
         const img = new Image();
         img.src = url;
