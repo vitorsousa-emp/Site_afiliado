@@ -71,8 +71,9 @@ const products = [
         image: '',
         description: 'Notebook com processador Intel i5, 8GB RAM, SSD 256GB e tela 15.6".',
         affiliateUrl: 'https://mercadolivre.com.br/produto-exemplo'
-    }
+    },
 ];
+
 
 let currentAffiliateUrl = '';
 
@@ -347,6 +348,18 @@ function preloadImages() {
         img.src = url;
     });
 }
+
+addProduct({
+    title: 'Relógio Smartwatch X8',
+    store: 'Amazon',
+    currentPrice: 'R$ 129,90',
+    originalPrice: 'R$ 199,90',
+    discount: '35% OFF',
+    icon: '⌚',
+    image: '', // ou coloque uma URL
+    description: 'Smartwatch com monitor de batimentos, resistência à água e notificações de apps.',
+    affiliateUrl: 'https://amazon.com.br/smartwatch-x8'
+})
 
 // Call preload on page load
 document.addEventListener('DOMContentLoaded', preloadImages);
